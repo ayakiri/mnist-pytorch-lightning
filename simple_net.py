@@ -24,9 +24,8 @@ class SimpleTrainingWithValidation(pl.LightningModule):
         self.val_acc = torchmetrics.Accuracy(task='multiclass', num_classes=10)
 
     def training_step(self, batch, batch_idx):
-        # training_step defines the train loop.
         x, y = batch
-        x = x.view(x.size(0), -1) # Spłaszczamy obraz
+        x = x.view(x.size(0), -1)
         y_hat = self.simplenet(x)
         J = self.loss(y_hat, y)
         self.train_acc(y_hat, y)
